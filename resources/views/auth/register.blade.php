@@ -1,108 +1,239 @@
+@extends('layouts.app')
+@push('css')
 
-<!DOCTYPE html>
-<html lang="en">
+@endpush
+@section('content')
+<!-- breadcrumb start -->
+<div class="breadcrumb_section overflow-hidden ptb-150">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-7 col-lg-8 col-md-8 col-sm-10 col-12 text-center">
+        <h2>Register As a Blood Donor</h2>
+        <ul>
+          <li><a href="index-2.html">Home</a></li>
+          <li class="active"> Register Now</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- breadcrumb end -->
 
-<head>
-  <meta charset="utf-8" />
-      <!-- CSRF Token -->
-      <meta name="csrf-token" content="{{ csrf_token() }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('backend/assets/img/apple-icon.png')}}">
-  <link rel="icon" type="image/png" href="{{ asset('backend/assets/img/favicon.png')}}">
-  <title>
-    Registion 
-  </title>
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-  <!-- Nucleo Icons -->
-  <link href="{{ asset('backend/assets/css/nucleo-icons.css') }}" rel="stylesheet" />
-  <link href="{{ asset('backend/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link href="{{ asset('backend/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
-  <!-- CSS Files -->
-  <link id="pagestyle" href="{{ asset('backend/assets/css/argon-dashboard.css?v=2.0.5') }}" rel="stylesheet" />
-</head>
-
-<body class="">
-  <main class="main-content main-content-bg mt-0">
-    <div class="page-header min-vh-100" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-basic.jpg');">
-      <span class="mask bg-gradient-dark opacity-6"></span>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-7">
-            <div class="card border-0 mb-0">
-              <div class="card-header bg-transparent">
-                <h5 class="text-dark text-center mt-2 mb-3">Register  Now</h5>
-                
-              </div>
-              <div class="card-body px-lg-5 pt-0">
-              @include('partial.formerror')
-                <form role="form" class="text-start" method="post" action="{{ route('register') }}">
-                    @csrf
-                    <div class="mb-3">
-                        <input type="text" class="form-control  @error('name') is-invalid @enderror" value="{{ old('name') }}" required  name="name" placeholder="Your Name" aria-label="Name" autocomplete="name" autofocus>
-                    </div>
-                    <div class="mb-3">
-                        <input type="email" class="form-control  @error('email') is-invalid @enderror" value="{{ old('email') }}" required  name="email" placeholder="Email" aria-label="Email" autocomplete="email" autofocus>
-                    </div>
-                    <div class="mb-3">
-                        <input type="tel" class="form-control  @error('phone') is-invalid @enderror" value="{{ old('phone') }}" required  name="phone" placeholder="Phone" aria-label="Phone">
-                      </div>
-                    <div class="mb-3">
-                        <input type="number" class="form-control  @error('zipcode') is-invalid @enderror" value="{{ old('zipcode') }}" required  name="zipcode" placeholder="Zip Code" aria-label="zipcode">
-                      </div>
-                    <div class="mb-3">
-                        <input type="password" class="form-control @error('password') is-invalid @enderror"  name="password" placeholder="Password" aria-label="Password" autofocus>
-                      </div>
-                    <div class="mb-3">
-                        <input type="password" class="form-control @error('password-confirm') is-invalid @enderror"  name="password_confirmation" placeholder="Password Confirm" aria-label="password-confirm" autofocus>
-                      </div>
-                 
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary w-100 my-4 mb-2">Sign Up</button>
-                      </div>
-                   </div>
-                
-                  <div class="card-footer text-center pt-0 px-sm-4 px-1">
-                    <p class="mb-4 mx-auto">
-                      Already have an account?
-                      <a href="{{route('login')}}" class="text-primary font-weight-bold">Sign in</a>
-                    </p>
-                  </div>
-                </form>
-              </div>
-            </div>
+<!-- resister box section start -->
+<section class="km__register__box ptb-120">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-8 offset-xl-2">
+        <div class="text-center">
+          <div class="km__website__title mb-30">
+            <h2>Blood BD Organization</h2>
           </div>
         </div>
       </div>
     </div>
-  </main>
-  <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+    <div class="row justify-content-center">
+      @include('partial.formerror')
+      <div class="col-xl-8">
+        <div class="km__form__box">
+          <form role="form" method="post" action="{{ route('register') }}">
+            @csrf
+            <div class="row align-items-center mb-20">
+              <div class="col-md-3">
+                <label class="fss-18">Full Name <span>*</span></label>
+              </div>
+              <div class="col-md">
+                <input type="text" value="{{ old('name') }}" required name="name" placeholder="Full Name">
+              </div>
 
-  <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-  <!--   Core JS Files   -->
-  <script src="{{ asset('backend/assets/js/core/popper.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/js/core/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
-  <!-- Kanban scripts -->
-  <script src="{{ asset('backend/assets/js/plugins/dragula/dragula.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/js/plugins/jkanban/jkanban.js') }}"></script>
-  <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-  </script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{{ asset('backend/assets/js/argon-dashboard.min.js?v=2.0.5') }}"></script>
-</body>
+            </div>
+            <div class="row align-items-center mb-20">
+              <div class="col-md-3">
+                <label class="fss-18">Birth % Gender<span>*</span></label>
+              </div>
+              <div class="col-md"><div class="row">
+            <div class="col-md-6">
+              <input type="date" value="{{ old('date_of_birth') }}" required name="date_of_birth"
+              placeholder="Full Name">
+            </div>
+            <div class="col-md-6">
+              <select class="form-control" value="{{ old('gender') }}" name="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
 
-</html>
+            </div>
+              </div>
+              
+              
+              </div>
 
+            </div>
+            <div class="row align-items-center mb-20">
+              <div class="col-md-3">
+                <label class="fss-18">BLOOD GROUP & Weight<span>*</span></label>
+              </div>
+              <div class="col-md-9">
+                <div class="row">
+                  <div class="col-md-6">
+                    <select class="form-control" value="{{ old('blood_group') }}" name="blood_group" required>
+                      <option></option>
+                      <option value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    {!! Form::text('weight',null,['id'=>'weight','class'=>'form-control','required','placeholder'=>'Type Weight']) !!}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            
+            <div class="row align-items-center mb-10 g-4">
+              <div class="col-md-3">
+                <label for="phone" class="fss-18">Phone Number<span>*</span></label>
+              </div>
+              <div class="col-md-9">
+
+                {!! Form::tel('phone',null,['id'=>'phone','class'=>'form-control','required','placeholder'=>'+880']) !!}
+              </div>
+            </div>
+            <div class="row align-items-center mb-10 g-4">
+              <div class="col-md-3">
+                <label for="phone" class="fss-18">Password<span>*</span></label>
+              </div>
+              <div class="col-md-9">
+                {!! Form::password('password',null,['id'=>'password','class'=>'form-control','required']) !!}
+              </div>
+            </div>
+            <div class="row align-items-center mb-20">
+              <div class="col-md-3">
+                <label for="division" class="fss-18">Select Division<span>*</span></label>
+              </div>
+              <div class="col-md-9">
+
+                {!! Form::select('division', Helper::divisionPluckValue(),null,
+                ['id'=>'division','class'=>'form-control','required','placeholder'=>'Select One']) !!}
+
+              </div>
+            </div>
+            <div class="row align-items-center mb-20">
+              <div class="col-md-3">
+                <label for="district" class="fss-18">Select District<span>*</span></label>
+              </div>
+              <div class="col-md-9">
+
+                {!! Form::select('district', [],null,
+                ['id'=>'district','class'=>'form-control','required','placeholder'=>'Select One']) !!}
+
+              </div>
+            </div>
+            <div class="row align-items-center mb-20">
+              <div class="col-md-3">
+                <label for="thana" class="fss-18">Upazila/Thana<span>*</span></label>
+              </div>
+              <div class="col-md-9">
+                {!! Form::select('thana', [],null,
+                ['id'=>'thana','class'=>'form-control','required','placeholder'=>'Select One']) !!}
+
+              </div>
+            </div>
+            <div class="row align-items-center mb-20">
+              <div class="col-md-3">
+                <label for="thana" class="fss-18">Union<span>*</span></label>
+              </div>
+              <div class="col-md-9">
+                {!! Form::text('union',null,['id'=>'union','class'=>'form-control','required','placeholder'=>'Type
+                Union']) !!}
+
+              </div>
+            </div>
+
+            <div class="row align-items-center mb-10 g-4">
+              <div class="col-md-3">
+                <label class="fss-18">Address<span>*</span></label>
+              </div>
+              <div class="col-md-9">
+                <label class="fs-14">
+                  Street Address
+                </label>
+                <input type="text" value="{{ old('address') }}" required name="address" placeholder="Full Address">
+              </div>
+            </div>
+
+
+            <div class="row align-items-center g-4">
+              <div class="col-md-3"></div>
+              <div class="col-md-9">
+                <button type="submit" class="km__register__btn pt-3 pb-3 mt-3">
+                  Submit
+                  <span><i class="fas fa-arrow-right"></i></span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- resister box section start -->
+
+@endsection
+@push('js')
+<script>
+  $('#division').change(function(){
+    $('#district').empty();
+    $('#thana').empty();
+var divisionid = $(this).val();
+
+$.ajax({
+type: "GET",
+url: url + '/get-district/'+divisionid,
+data:{},
+dataType: "JSON",
+success:function(data) {
+   if(data){
+         
+            $.each(data, function(key, value){
+              $('#district').append('<option value="'+value.district+'">' + value.district + '</option>');
+
+            });
+        }
+
+    },
+});
+});
+  $('#district').change(function(){
+    $('#thana').empty();
+
+var districtnid = $(this).val();
+
+$.ajax({
+type: "GET",
+url: url + '/get-thana/'+districtnid,
+data:{},
+dataType: "JSON",
+success:function(data) {
+   if(data){
+         
+            $.each(data, function(key, value){
+              $('#thana').append('<option value="'+value.thana+'">' + value.thana + '</option>');
+
+            });
+        }
+
+    },
+});
+
+});
+</script>
+@endpush

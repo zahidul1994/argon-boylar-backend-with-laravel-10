@@ -6,7 +6,7 @@
         <a class="navbar-brand m-0" href="{{url('/')}} " target="_blank">
             <img src="{{ asset('backend/assets/img/logo-ct-dark.png') }}" class="navbar-brand-img h-100"
                 alt="main_logo">
-            <span class="ms-1 font-weight-bold">SohiBD</span>
+            <span class="ms-1 font-weight-bold">Blood</span>
         </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -18,39 +18,20 @@
                     <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                         <i class="ni ni-shop text-primary text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Users</span>
+                    <span class="nav-link-text ms-1">Clubs</span>
                 </a>
                 <div class="collapse  show" id="dashboardsExamples">
                     <ul class="nav ms-4">
-                        
-                        <li class="nav-item {{Request::is(Request::segment(1) .'/roles*') ? 'active' : ''}}">
-                            <a class="nav-link " href="{{route(Request::segment(1) . '.roles.index')}}">
+                        @can('club-list')
+                            
+                    
+                        <li class="nav-item {{Request::is(Request::segment(1) .'/clubs*') ? 'active' : ''}}">
+                            <a class="nav-link " href="{{route(Request::segment(1) . '.clubs.index')}}">
                                 <span class="sidenav-mini-icon"> S </span>
-                                <span class="sidenav-normal">Roles  </span>
+                                <span class="sidenav-normal">Club  </span>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="#vrExamples">
-                                <span class="sidenav-mini-icon"> V </span>
-                                <span class="sidenav-normal"> Virtual Reality <b class="caret"></b></span>
-                            </a>
-                            <div class="collapse " id="vrExamples">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link " href="../../pages/dashboards/vr/vr-default.html">
-                                            <span class="sidenav-mini-icon text-xs"> V </span>
-                                            <span class="sidenav-normal"> VR Default </span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link " href="../../pages/dashboards/vr/vr-info.html">
-                                            <span class="sidenav-mini-icon text-xs"> V </span>
-                                            <span class="sidenav-normal"> VR Info </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                        @endcan
                         <li class="nav-item ">
                             <a class="nav-link " href="../../pages/dashboards/crm.html">
                                 <span class="sidenav-mini-icon"> C </span>

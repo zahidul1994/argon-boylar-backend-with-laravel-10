@@ -4,17 +4,11 @@ use App\Helpers\Helper;
 use UniSharp\LaravelFilemanager\Lfm;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\InsuranceController;
-use App\Http\Controllers\HealthController;
-use App\Http\Controllers\LifeController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\BotManController;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\CommonController;
-use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\SubscribeController;
+use App\Http\Controllers\OnChangeController;
+use App\Http\Controllers\BloodController;
+
 Route::get('storate-link', function () {
     $exitCode = Artisan::call('storage:link');
     return 'store link folder create';
@@ -45,6 +39,8 @@ Route::get('dbseed', function () {
 
 Route::get('/', [HomeController::class,'index']);
 Route::get('/main', [HomeController::class,'main']);
+Route::get('get-district/{id}', [OnChangeController::class,'getDistrict']);
+Route::get('get-thana/{id}', [OnChangeController::class,'getThana']);
 
 Auth::routes();
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
@@ -52,10 +48,10 @@ Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], funct
 });
 
 
-Route::get('/home', [HomeController::class,'index'])->name('home');
+Route::get('/home', [HomeController::class,'home'])->middleware('auth');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-
+Route::get('blood-search', [BloodController::class,'search'])->middleware('auth');
 
 
 

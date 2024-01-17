@@ -1,105 +1,80 @@
+@extends('layouts.app')
+@push('css')
 
-<!DOCTYPE html>
-<html lang="en">
+@endpush
+@section('content')
+  <!-- breadcrumb start -->
+  <div class="breadcrumb_section overflow-hidden ptb-150">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-8 col-sm-10 col-12 text-center">
+          <h2>Login As a Blood BD Donor</h2>
+          <ul>
+            <li><a href="index-2.html">Home</a></li>
+            <li class="active"> Login Now</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- breadcrumb end -->
 
-<head>
-  <meta charset="utf-8" />
-      <!-- CSRF Token -->
-      <meta name="csrf-token" content="{{ csrf_token() }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('backend/assets/img/apple-icon.png')}}">
-  <link rel="icon" type="image/png" href="{{ asset('backend/assets/img/favicon.png')}}">
-  <title>
-    Login
-  </title>
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-  <!-- Nucleo Icons -->
-  <link href="{{ asset('backend/assets/css/nucleo-icons.css') }}" rel="stylesheet" />
-  <link href="{{ asset('backend/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link href="{{ asset('backend/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
-  <!-- CSS Files -->
-  <link id="pagestyle" href="{{ asset('backend/assets/css/argon-dashboard.css?v=2.0.5') }}" rel="stylesheet" />
-</head>
-
-<body class="">
-  <main class="main-content main-content-bg mt-0">
-    <div class="page-header min-vh-100" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-basic.jpg');">
-      <span class="mask bg-gradient-dark opacity-6"></span>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-7">
-            <div class="card border-0 mb-0">
-              <div class="card-header bg-transparent">
-                <h5 class="text-dark text-center mt-2 mb-3">Sign in</h5>
-                
-              </div>
-              <div class="card-body px-lg-5 pt-0">
-              @include('partial.formerror')
-                <form role="form" class="text-start" method="post" action="{{ route('login') }}">
-                    @csrf
-                  <div class="mb-3">
-                    <input type="email" class="form-control" value="{{ old('email') }}" required  name="email" placeholder="Email" aria-label="Email">
-                  </div>
-                 
-                  <div class="mb-3">
-                    <input type="password" class="form-control"  name="password" placeholder="Password" aria-label="Password">
-                  </div>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }} id="rememberMe">
-                    <label class="form-check-label" for="rememberMe">Remember me </label>   &nbsp;
-                    
-                  </div>
-                  <a href="{{route('password.request')}}"> Forgot Password</a>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-primary w-100 my-4 mb-2">Sign in</button>
-                  </div>
-                  <div class="mb-2 position-relative text-center">
-                    <p class="text-sm font-weight-bold mb-2 text-secondary text-border d-inline z-index-2 bg-white px-3">
-                      or
-                    </p>
-                  </div>
-                  
-                  <div class="card-footer text-center pt-0 px-sm-4 px-1">
-                    <p class="mb-4 mx-auto">
-                     Need  account?
-                      <a href="{{route('register')}}" class="text-primary font-weight-bold">Sign Up</a>
-                    </p>
-                  </div>
-                </form>
-              </div>
+  <!-- resister box section start -->
+  <section class="km__register__box ptb-120">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-8 offset-xl-2">
+          <div class="text-center">
+            <div class="km__website__title mb-30">
+              <h2>Blood BD Organization</h2>
             </div>
           </div>
         </div>
       </div>
+      <div class="row justify-content-center">
+        <div class="col-xl-8">
+          <div class="km__form__box">
+            @include('partial.formerror')
+            <form role="form"  method="post" action="{{ route('login') }}">
+              @csrf
+              <div class="row align-items-center mb-20">
+                <div class="col-md-3">
+                  <label class="fss-18">Email Address <span>*</span></label>
+                </div>
+                <div class="col-md">
+                  <label class="fs-14">
+                    Name
+                  </label>
+                  <input type="email" value="{{ old('email') }}" required  name="email" placeholder="Your Email" >
+                </div>
+              </div>
+              <div class="row align-items-center mb-20">
+                <div class="col-md-3">
+                  <label class="fss-18">Password <span>*</span></label>
+                </div>
+                <div class="col-md">
+                  <label class="fs-14">
+                    Password
+                  </label>
+                  <input type="password" value="{{ old('password') }}" required  name="password" placeholder="Your Password" >
+                </div>
+              </div>
+              
+              <div class="row align-items-center g-4">
+                <div class="col-md-3"></div>
+                <div class="col-md-9">
+                  <button type="submit" class="km__register__btn pt-3 pb-3 mt-3">
+                    Submit
+                    <span><i class="fas fa-arrow-right"></i></span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-  </main>
-  <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+  </section>
+  <!-- resister box section start -->
 
-  <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-  <!--   Core JS Files   -->
-  <script src="{{ asset('backend/assets/js/core/popper.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/js/core/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
-  <!-- Kanban scripts -->
-  <script src="{{ asset('backend/assets/js/plugins/dragula/dragula.min.js') }}"></script>
-  <script src="{{ asset('backend/assets/js/plugins/jkanban/jkanban.js') }}"></script>
-  <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-  </script>
-  <!-- Github buttons -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{{ asset('backend/assets/js/argon-dashboard.min.js?v=2.0.5') }}"></script>
-</body>
-
-</html>
+  @endsection

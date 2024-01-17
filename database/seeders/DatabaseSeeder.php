@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+
 use Database\Seeders\PermissionTableSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -17,6 +18,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(PermissionTableSeeder::class);
         $this->call(CreateSuperAdmin::class);
+        $this->call(CreateAdmin::class);
         $this->call(SettingTableSeeder::class);
+       
     }
 }

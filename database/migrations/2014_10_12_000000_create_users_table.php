@@ -23,9 +23,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('image')->default('not-found.webp');
-            $table->integer('refer')->nullable();
+            $table->tinyInteger('profile_visibility')->default(1);
             $table->integer('otp')->nullable();
-            $table->json('language')->nullable();
             $table->ipAddress('ip_address')->default('101.2.160.0');
 			$table->tinyInteger('status')->default(0);
             $table->bigInteger('created_by_user_id')->default(1);

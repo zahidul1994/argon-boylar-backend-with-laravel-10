@@ -55,10 +55,9 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'min:8','max:68', 'unique:users'],
-            'zipcode' => ['required', 'min:4','max:30'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'numeric','digits:11', 'unique:users'],
+			 'password' => ['required', 'string', 'min:6'],
+           
         ]);
     }
 
@@ -67,68 +66,28 @@ class RegisterController extends Controller
     {
        $user= User::create([
             'name' => $data['name'],
-            'email' => $data['email'],
+            'email' => $data['phone'].'@gmail.com',
             'phone' => $data['phone'],
-            'user_type' => "Customer",
-            'language' => json_encode(["en"]),
+            'user_type' => "User",
             'image' => "not-found.webp",
+            'otp' => mt_rand('0000','9999'),
             'username'=> Generate::Slug($data['name'].date('Y-m-d').$data['phone']),
-            'zip_code' =>  $data['zipcode'],
-            'password' => Hash::make($data['password']),
+           'password' => Hash::make($data['password']),
         ]);
         $profile=new Profile();
         $profile->user_id= $user->id;
-        $profile->gender= 'Male';
+        $profile->blood_group= $data['blood_group'];
+        $profile->gender= $data['gender'];
+        $profile->position='Blood Hero';
+        $profile->weight=$data['weight'];
+        $profile->division=$data['division'];
+        $profile->district=$data['district'];
+        $profile->upazila=$data['thana'];
+        $profile->address=$data['address'];
         $profile->save();
         return $user;
     }
 
 
-    public function companyRegister(Request $request){
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'phone' => 'required|min:9|max:60|unique:users,phone',
-            'password' => 'required|min:6|max:40|confirmed',
-            'company_logo' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
-            'zip_code' => 'required|min:4|max:60',
-            'company_name' => 'required|min:1|max:198',
-           
-        ], [
-            'zip_code.required' => "The Zip Code name field is required",
-            'zip_code.min' => "The  Zip Code Minimum Length 4",
-            'zip_code.max' => "The  Zip Code Maximum Length 60",
-            'company_name.required' => "The Company name field is required",
-            'company_name.min' => "The  Company name Minimum Length 1",
-            'company_name.max' => "The Company Maximum Length 198",
-            'company_logo.required' => "The Company Logo  field is required",
-
-        ]);
-
-        $name = $request->name;
-        $password = Hash::make($request->password);
-        $user = new User();
-        $user->name=$name;
-        $user->user_type='Company';
-        $user->email=$request->email;
-        $user->phone=$request->phone;
-        $user->username= Generate::Slug($name.date('Y-m-d').$request->company_name);
-        $user->image = 'not-found.webp';
-        $user->zip_code = $request->zip_code;
-        $user->ip_address = $request->ip();
-        $user->password =  $password;
-        $user->created_by_user_id = 1;
-        $user->updated_by_user_id =  1;
-        if($user->save()){
-         $profile=new Profile();
-         $profile->user_id= $user->id;
-         $profile->company_name= $request->company_name;
-         $profile->company_logo= $request->company_logo->store('uploads/company/logo');
-        }
-        $user->assignRole('Company');
-        $profile->save();
-        Auth::login($user);
-        Toastr::success("Company Account Create Successfully", "Success");
-       return redirect()->to('company/dashboard');
-    }
+ 
 }

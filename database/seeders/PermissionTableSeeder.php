@@ -14,6 +14,10 @@ class PermissionTableSeeder extends Seeder
         public function run()
         {
             $permission=array(
+              'club-list',
+              'club-create',
+              'club-edit',
+              'club-delete',
               'role-list',
               'role-create',
               'role-edit',
@@ -21,7 +25,8 @@ class PermissionTableSeeder extends Seeder
               'user-list',
               'user-create',
               'user-edit',
-              'user-delete',  
+              'user-delete', 
+               
             );
             foreach($permission as $v) {
                 $newlist  = new Permission();

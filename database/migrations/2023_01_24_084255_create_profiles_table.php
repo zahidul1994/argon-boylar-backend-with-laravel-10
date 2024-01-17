@@ -18,21 +18,17 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('position')->nullable();
+            $table->string('date_of_birth')->nullable();
             $table->enum('gender',['Male','Female','Other'])->default('Male');
-            $table->string('fax')->nullable();
-            $table->string('country')->nullable();
-            $table->string('state')->nullable();
-            $table->string('office_phone')->nullable();
-            $table->string('company_name',350)->nullable();
-            $table->string('company_address',500)->nullable();
-            $table->string('google_location_link',400)->nullable();
-            $table->string('facebook_link',400)->nullable();
-            $table->string('twitter_link',400)->nullable();
-            $table->string('linkedin_link',400)->nullable();
-            $table->string('facts',400)->nullable();
-            $table->string('company_logo',400)->nullable();
-            $table->mediumText('description')->nullable();
-           $table->timestamps();
+             $table->string('country')->default('Bangladesh');
+            $table->enum('blood_group',['A+','A-','B+','B-','O+','O-','AB+','AB-'])->default('O+');
+            $table->string('weight',50)->default(18);
+            $table->string('division',50)->nullable();
+            $table->string('district',60)->nullable();
+            $table->string('upazila',100)->nullable();
+            $table->string('union',100)->nullable();
+            $table->string('address',400)->nullable();
+            $table->timestamps();
         });
     }
 
