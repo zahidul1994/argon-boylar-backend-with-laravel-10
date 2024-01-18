@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\OnChangeController;
 use App\Http\Controllers\BloodController;
+use App\Http\Controllers\BloodClubController;
 
 Route::get('storate-link', function () {
     $exitCode = Artisan::call('storage:link');
@@ -52,6 +53,7 @@ Route::get('/home', [HomeController::class,'home'])->middleware('auth');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('blood-search', [BloodController::class,'search'])->middleware('auth');
+Route::get('blood-club', [BloodClubController::class,'club'])->middleware('auth');
 
 
 

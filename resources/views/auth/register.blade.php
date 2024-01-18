@@ -148,7 +148,7 @@
             </div>
             <div class="row align-items-center mb-20">
               <div class="col-md-3">
-                <label for="thana" class="fss-18">Union<span>*</span></label>
+                <label for="union" class="fss-18">Union<span>*</span></label>
               </div>
               <div class="col-md-9">
                 {!! Form::text('union',null,['id'=>'union','class'=>'form-control','required','placeholder'=>'Type

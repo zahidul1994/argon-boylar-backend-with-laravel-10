@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('clubs', function (Blueprint $table) {
             $table->id();
+            // $table->bigInteger('user_id')->unsigned()->nullable();
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('club_name');
             $table->string('contact_person')->nullable();
             $table->string('email')->nullable();

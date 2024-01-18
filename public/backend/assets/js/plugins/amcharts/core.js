@@ -28038,7 +28038,7 @@
   },
   dzqq: function(t, e, i) {
     var r = i("0sYB"),
-      n = i("SohiBDM").values;
+      n = i("agencyM").values;
     r({
       target: "Object",
       stat: !0
@@ -28965,7 +28965,7 @@
   },
   "h+H5": function(t, e, i) {
     var r = i("0sYB"),
-      n = i("SohiBDM").entries;
+      n = i("agencyM").entries;
     r({
       target: "Object",
       stat: !0
@@ -30348,7 +30348,7 @@
       return "[object " + n(this) + "]"
     }
   },
-  SohiBDM: function(t, e, i) {
+  agencyM: function(t, e, i) {
     var r = i("3sMl"),
       n = i("kcMx"),
       a = i("9XRO"),

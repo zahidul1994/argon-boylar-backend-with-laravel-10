@@ -1,24 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Common;
-use DB;
-use Hash;
-use App\Models\User;
-use Illuminate\Support\Arr;
+use App\Models\Club;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Helpers\ErrorTryCatch;
-use App\Models\Club;
-
+use Spatie\Permission\Models\Permission;
 class ClubController extends Controller
 {
-    private  $User ;
-    function __construct()
-    {
+    private $User ;
+    function __construct(){
 
         $this->middleware(function ($request, $next) {
             $this->User = Auth::user();
@@ -93,7 +87,39 @@ class ClubController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+
+       $this->validate($request, [
+        'club_name' => 'required',
+        'contact_person' => 'required',
+        'email' => 'required',
+        'phones.*' => 'required',
+        'division' => 'required',
+        'upazila' => 'required',
+        'union' => 'required',
+        'address' => 'required',
+        'image' => 'required',
+     
+    ]);
+           
+            $club =new Club();
+            $club->user_id =Auth::id();
+            $club->club_name = $request->club_name;
+            $club->contact_person=$request->contact_person;
+            $club->email=$request->email;
+            $club->phones=json_encode($request->phones);
+            $club->email=$request->email;
+            $club->division=$request->division;
+            $club->district=$request->district;
+            $club->upazila=$request->upazila;
+            $club->union=$request->union;
+            $club->address=$request->address;
+            $club->image=$request->image;
+            $club->save();
+          Toastr::success("Club Create  Successfully", "Success");
+                return redirect()->route(request()->segment(1) . '.clubs.index');
+    
+            
     }
 
     /**
@@ -109,7 +135,8 @@ class ClubController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $club = Club::find(decrypt($id));
+        return view('backend.common.clubs.edit',compact('club'));
     }
 
     /**
@@ -117,12 +144,48 @@ class ClubController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
+       $this->validate($request, [
+        'club_name' => 'required',
+        'contact_person' => 'required',
+        'email' => 'required',
+        'phones.*' => 'required',
+        'division' => 'required',
+        'upazila' => 'required',
+        'union' => 'required',
+        'address' => 'required',
+        'image' => 'required',
+     
+    ]);
+           
+            $club =Club::findOrFail($id);
+            $club->user_id =Auth::id();
+            $club->club_name = $request->club_name;
+            $club->contact_person=$request->contact_person;
+            $club->email=$request->email;
+            $club->phones=json_encode($request->phones);
+            $club->email=$request->email;
+            $club->division=$request->division;
+            $club->district=$request->district;
+            $club->upazila=$request->upazila;
+            $club->union=$request->union;
+            $club->address=$request->address;
+            $club->image=$request->image;
+            $club->save();
+             Toastr::success("Club Update  Successfully", "Success");
+                return redirect()->route(request()->segment(1) . '.clubs.index');
+    
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function updateStatus(Request $request)
+    {
+        $club = Club::findOrFail($request->id);
+        $club->status = $request->status;
+        if ($club->save()) {
+            return 1;
+        }
+        return 0;
+    }
     public function destroy(string $id)
     {
         //

@@ -32,12 +32,26 @@
                             </a>
                         </li>
                         @endcan
-                        <li class="nav-item ">
-                            <a class="nav-link " href="../../pages/dashboards/crm.html">
-                                <span class="sidenav-mini-icon"> C </span>
-                                <span class="sidenav-normal"> CRM </span>
+                        <li class="nav-item">
+                            <a class="nav-link {{Request::is(Request::segment(1) .'/blogs*') ? 'active' : ''}}"
+                                href="{{route(Request::segment(1) . '.blogs.index')}}">
+                                <div
+                                    class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
+                                    <i class="ni ni-hat-3 text-danger text-sm opacity-10"></i>
+                                </div>
+                                <span class="nav-link-text ms-1">Blogs  </span>
                             </a>
-                        </li>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link {{Request::is(Request::segment(1) .'/categories*') ? 'active' : ''}}"
+                                href="{{route(Request::segment(1) . '.categories.index')}}">
+                                <div
+                                    class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
+                                    <i class="ni ni-money-coins text-danger text-sm opacity-10"></i>
+                                </div>
+                                <span class="nav-link-text ms-1">Category  </span>
+                            </a>
+                        </li> 
                     </ul>
                 </div>
             </li>

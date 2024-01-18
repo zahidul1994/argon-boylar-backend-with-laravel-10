@@ -109,8 +109,14 @@
      }
      
      showTime();
-        
-        </script>
+  
+			   var url = "{{URL::to('/')}}";
+            $.ajaxSetup({
+                          headers: {
+                              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                          }
+                      });
+		</script>
 @stack('js')
 </body>
 

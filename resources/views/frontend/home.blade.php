@@ -42,13 +42,12 @@
               <div class="donate_content text-center">
                 <span><img src="assets/images/icon/d2.png" alt=""></span>
                 <a href="service-details.html">
-                  <h5>Why give blood?</h5>
+                  <h5>Blood Club</h5>
                 </a>
-                <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
-                  born and I will give</p>
+                <p>Get All Blood Club</p>
               </div>
             </div>
-            <a href="service-details.html" class="d-block black_bg text-center">Read More</a>
+            <a href="{{url('blood-club')}}" class="d-block black_bg text-center">Find Now</a>
           </div>
         </div>
         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">

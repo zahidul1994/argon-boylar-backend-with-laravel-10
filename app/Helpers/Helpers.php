@@ -2,17 +2,19 @@
 
 namespace App\Helpers;
 
-use App\Models\Division;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+use App\Models\Country;
 use App\Models\Setting;
+use App\Models\Category;
+use App\Models\Division;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use PHPUnit\Framework\Constraint\Count;
+use Spatie\Permission\Models\Permission;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -37,7 +39,10 @@ class Helper
         return  Permission::get();
     }
     
-
+    public static function getCategory()
+    {
+        return Category::wherestatus(1)->pluck('name', 'name');
+    }
     public static function allCountry()
     {
         $countryList = array(

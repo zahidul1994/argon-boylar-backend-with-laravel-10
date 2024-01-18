@@ -11194,7 +11194,7 @@ am4internal_webpackJsonp(["fcaa"], {
           ]
         },
         properties: {
-          name: "DjSohiBDuti",
+          name: "Djagencyuti",
           id: "DJ"
         },
         id: "DJ"

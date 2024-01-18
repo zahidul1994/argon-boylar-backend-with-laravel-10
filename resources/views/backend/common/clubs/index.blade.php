@@ -1,8 +1,10 @@
 @extends('backend.layouts.master')
 @section('title', 'Clubs')
 @push('css')
-    <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <link href="{{ asset('css/lightbox.css') }}" rel="stylesheet" />
+<link rel="stylesheet" href="{{asset('backend/assets/js/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+<link rel="stylesheet"
+    href="{{asset('backend/assets/js/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+<link href="{{ asset('lightbox/css/lightbox.css') }}" rel="stylesheet" />
 @endpush
 @section('content')
     <div class="container-fluid py-4">
@@ -34,9 +36,8 @@
                                         <tr>
                                             <th>Sl</th>
                                             <th>Name</th>
-                                            <th>Type</th>
+                                            <th>Persion</th>
                                             <th>Email</th>
-                                            <th>Phone</th>
                                             <th>Photo</th>
                                             <th>Status</th>
                                             <th>Action</th>
@@ -49,9 +50,8 @@
                                         <tr>
                                             <th>Sl</th>
                                             <th>Name</th>
-                                            <th>Type</th>
+                                            <th>Persion</th>
                                             <th>Email</th>
-                                            <th>Phone</th>
                                             <th>Photo</th>
                                             <th>Status</th>
                                             <th>Action</th>
@@ -68,15 +68,15 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('js/lightbox.js') }}"></script> 
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<script src="{{ asset('lightbox/js/lightbox.js') }}"></script>
+<script src="{{asset('backend/assets/js/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('backend/assets/js/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('backend/assets/js/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('backend/assets/js/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('backend/assets/js/plugins/sweetalert.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            lightbox.option({
-                'resizeDuration': 200,
-                'wrapAround': true
-            });
+           
             $('#datatable-basic').DataTable({
                 processing: true,
                 serverSide: true,
@@ -120,28 +120,25 @@
                     'colvis'
 
                 ],
-                ajax: "{{ route(Request::segment(1) . '.users.index') }}",
+                ajax: "{{ route(Request::segment(1) . '.clubs.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         orderable: false,
                         searchable: false
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'club_name',
+                        name: 'club_name'
                     },
                     {
-                        data: 'user_type',
-                        name: 'user_type'
+                        data: 'contact_person',
+                        name: 'contact_person'
                     },
                     {
                         data: 'email',
                         name: 'email'
                     },
-                    {
-                        data: 'phone',
-                        name: 'phone'
-                    },
+                   
                     {
                         data: 'image'
                     },
@@ -163,14 +160,14 @@
             } else {
                 var status = 0;
             }
-            $.post("{{ route(Request::segment(1) . '.userStatus') }}", {
+            $.post("{{ route(Request::segment(1) . '.clubStatus') }}", {
                     _token: '{{ csrf_token() }}',
                     id: el.value,
                     status: status
                 },
                 function(data) {
                     if (data == 1) {
-                        toastr.success('success', 'User Status updated successfully');
+                        toastr.success('success', 'Club Status updated successfully');
                     } else {
                         toastr.danger('danger', 'Something went wrong');
                     }
