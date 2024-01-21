@@ -77,12 +77,14 @@ class RegisterController extends Controller
         $profile=new Profile();
         $profile->user_id= $user->id;
         $profile->blood_group= $data['blood_group'];
+        $profile->date_of_birth= $data['date_of_birth'];
         $profile->gender= $data['gender'];
         $profile->position='Blood Hero';
         $profile->weight=$data['weight'];
         $profile->division=$data['division'];
         $profile->district=$data['district'];
         $profile->upazila=$data['thana'];
+        $profile->union=$data['union'];
         $profile->address=$data['address'];
         $profile->save();
         return $user;

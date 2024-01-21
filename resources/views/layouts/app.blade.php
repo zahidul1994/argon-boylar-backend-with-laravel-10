@@ -157,6 +157,7 @@
 							  <li><a href="blog-details-right-sidebar.html">Blog Rightsidebar</a></li>
 							</ul>
 						  </div>
+						  
 						  <div class="megamenu-column banner">
 							<div class="megamenu-banner img">
 							  <div class="row ">
@@ -178,14 +179,10 @@
 					  </div>
 					</li>
 					<li class="position-relative">
-					  <a href="javascript:void(0)">Blog <i class="fa-solid fa-angle-down"></i></a>
+					  <a href="javascript:void(0)">User<i class="fa-solid fa-angle-down"></i></a>
 					  <ul class="submenu_wrapper">
-						<li><a href="blog-default.html">Blog</a></li>
-						<li><a href="blog-details.html">Blog Details</a></li>
-						<li><a href="blog-details-left-sidebar.html">Blog Leftsidebar</a></li>
-						<li><a href="blog-details-right-sidebar.html">Blog rightsidebar</a></li>
-						<li><a href="blog-style1.html">Blog style 1</a></li>
-						<li><a href="blog-style2.html">Blog style 2</a></li>
+						<li><a href="{{url('register')}}">Register</a></li>
+						<li><a href="{{url('login')}}">Login</a></li>
 					  </ul>
 					</li>
 					<li><a href="contact.html">Contact</a></li>
