@@ -25,6 +25,23 @@
               <div class="donate_content text-center">
                 <span><img src="assets/images/icon/d1.png" alt=""></span>
                 <a href="service-details.html">
+                  <h5>Blood Request</h5>
+                </a>
+                <p>If Need Bolld Please Request</p>
+              </div>
+            </div>
+            <a href="{{url('blood-request')}}" class="d-block black_bg text-center">Request Now</a>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+          <div class="register_donate_item">
+            <div class="donate_item_top">
+              <div class="donate_img">
+                <img src="assets/images/r1.jpg" alt="">
+              </div>
+              <div class="donate_content text-center">
+                <span><img src="assets/images/icon/d1.png" alt=""></span>
+                <a href="service-details.html">
                   <h5>Search Donor</h5>
                 </a>
                 <p>If Need Bolld Search Doner</p>

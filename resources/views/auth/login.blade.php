@@ -39,13 +39,13 @@
               @csrf
               <div class="row align-items-center mb-20">
                 <div class="col-md-3">
-                  <label class="fss-18">Email Address <span>*</span></label>
+                  <label class="fss-18">Phone Number <span>*</span></label>
                 </div>
                 <div class="col-md">
                   <label class="fs-14">
-                    Name
+                    Phone
                   </label>
-                  <input type="email" value="{{ old('email') }}" required  name="email" placeholder="Your Email" >
+                  <input type="tel" value="{{ old('phone') }}" required  name="phone" placeholder="Your Email" >
                 </div>
               </div>
               <div class="row align-items-center mb-20">

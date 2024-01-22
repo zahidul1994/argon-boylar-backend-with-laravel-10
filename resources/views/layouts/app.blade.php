@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="{{asset('frontend/assets/css/fancybox.css')}}">
 	<link rel="stylesheet" href="{{asset('frontend/assets/css/style.css')}}">
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     @stack('css')
 </head>
 <body>
@@ -495,6 +495,9 @@
                           }
                       });
 		</script>
+		   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+		   {!! @Toastr::message() !!}
+	   
 	@stack('js')
 
 </body>

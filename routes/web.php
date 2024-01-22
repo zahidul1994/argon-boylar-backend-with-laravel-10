@@ -53,8 +53,10 @@ Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], funct
 
 Route::get('/home', [HomeController::class,'home'])->middleware('auth');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
+Route::post('login', [LoginController::class,'login'])->name('login');
 Route::get('blood-search', [BloodController::class,'search'])->middleware('auth');
+Route::get('blood-request', [BloodController::class,'bloodRequest'])->middleware('auth');
+Route::post('blood-request', [BloodController::class,'bloodRequestStore'])->middleware('auth');
 Route::get('blood-club', [BloodClubController::class,'club'])->middleware('auth');
 Route::get('profile-update', [UserController::class,'profile'])->middleware('auth');
 Route::patch('profile-update/{id}', [UserController::class,'profileUpdate'])->name('profileUpdate')->middleware('auth');
