@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\OnChangeController;
 use App\Http\Controllers\BloodController;
 use App\Http\Controllers\BloodClubController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\user\UserController;
 
 
@@ -23,17 +24,7 @@ Route::get('clear-cache', function () {
 Route::fallback(function () {
     abort(404);
 });
-Route::get('migrate', function () {
-    Artisan::call(
-        'migrate',
-        array(
-          '--path' => 'database/migrations',
-          '--database' => 'mysql',
-          '--force' => true
-        )
-      );
-    return 'migrate done';
-});
+
 
 Route::get('dbseed', function () {
     Artisan::call('db:seed');
@@ -52,9 +43,18 @@ Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], funct
 
 
 Route::get('/home', [HomeController::class,'home'])->middleware('auth');
+
+##blog
+
+Route::get('blog', [BlogController::class,'index']);
+Route::get('blog/{id}', [BlogController::class,'show']);
+
+
+##auth
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('login', [LoginController::class,'login'])->name('login');
 Route::get('blood-search', [BloodController::class,'search'])->middleware('auth');
+Route::post('blood-search', [BloodController::class,'searchBlood'])->middleware('auth');
 Route::get('blood-request', [BloodController::class,'bloodRequest'])->middleware('auth');
 Route::post('blood-request', [BloodController::class,'bloodRequestStore'])->middleware('auth');
 Route::get('blood-club', [BloodClubController::class,'club'])->middleware('auth');

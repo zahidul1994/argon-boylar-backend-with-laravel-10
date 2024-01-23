@@ -21,17 +21,19 @@
                     <span class="nav-link-text ms-1">Clubs</span>
                 </a>
                 <div class="collapse  show" id="dashboardsExamples">
-                    <ul class="nav ms-4">
-                        @can('club-list')
-                            
-                    
-                        <li class="nav-item {{Request::is(Request::segment(1) .'/clubs*') ? 'active' : ''}}">
-                            <a class="nav-link " href="{{route(Request::segment(1) . '.clubs.index')}}">
-                                <span class="sidenav-mini-icon"> S </span>
-                                <span class="sidenav-normal">Club  </span>
+                    <ul class="nav ms-4">                       
+                        
+                       
+                        <li class="nav-item">
+                            <a class="nav-link {{Request::is(Request::segment(1) .'/clubs*') ? 'active' : ''}}"
+                                href="{{route(Request::segment(1) . '.clubs.index')}}">
+                                <div
+                                    class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
+                                    <i class="ni ni-hat-3 text-danger text-sm opacity-10"></i>
+                                </div>
+                                <span class="nav-link-text ms-1">Club  </span>
                             </a>
-                        </li>
-                        @endcan
+                        </li> 
                         <li class="nav-item">
                             <a class="nav-link {{Request::is(Request::segment(1) .'/blogs*') ? 'active' : ''}}"
                                 href="{{route(Request::segment(1) . '.blogs.index')}}">

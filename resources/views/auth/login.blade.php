@@ -45,7 +45,7 @@
                   <label class="fs-14">
                     Phone
                   </label>
-                  <input type="tel" value="{{ old('phone') }}" required  name="phone" placeholder="Your Email" >
+                  <input type="tel" value="{{ old('phone') }}" required  name="phone" placeholder="Your Phone" >
                 </div>
               </div>
               <div class="row align-items-center mb-20">

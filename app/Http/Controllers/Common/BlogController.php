@@ -107,7 +107,8 @@ class BlogController extends Controller
             $request,
             [
                 'title' => 'required|min:1|max:198|unique:blogs',
-                'short_description' => 'required|min:1|max:190',
+                'meta_description' => 'required|min:1|max:160',
+                'short_description' => 'required|min:1|max:350',
                 'long_description' => 'required|min:3|max:70000',
                 'image' => 'required',
                 'category' => 'required',
@@ -134,7 +135,7 @@ class BlogController extends Controller
             $blog->title = $request->title;
             $blog->slug = Generate::Slug($request->slug);
             $blog->meta_title = $request->meta_title ?: $request->title;
-            $blog->meta_description = $request->meta_description ?: $request->short_description;
+            $blog->meta_description = $request->meta_description ?: $request->title;
             $blog->short_description = $request->short_description;
             $blog->json_screma = $request->json_screma;
             $blog->keyword = $request->keyword;
@@ -212,7 +213,8 @@ class BlogController extends Controller
             $request,
             [
                 'title' => 'required|min:1|max:198|unique:blogs,title,' . $id,
-                'short_description' => 'required|min:1|max:190',
+                'meta_description' => 'required|min:1|max:190',
+                'short_description' => 'required|min:1|max:350',
                 'long_description' => 'required|min:3|max:70000',
                 'category' => 'required|min:1|max:290',
                 'image' => 'required',
@@ -237,7 +239,7 @@ class BlogController extends Controller
             $blog->title = $request->title;
             $blog->slug = Generate::Slug($request->slug);
             $blog->meta_title = $request->meta_title ?: $request->title;
-            $blog->meta_description = $request->meta_description ?: $request->short_description;
+            $blog->meta_description = $request->meta_description ?: $request->title;
             $blog->short_description = $request->short_description;
             $blog->json_screma = $request->json_screma;
             $blog->keyword = $request->keyword;

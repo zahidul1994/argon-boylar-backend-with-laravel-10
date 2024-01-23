@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('frontend/assets/img/apple-icon.png')}}">
     <link rel="icon" type="image/png" href="{{ asset('frontend/assets/img/agency.ico')}}">
-	<meta property="og:site_name" content="Shop Management">
+	<meta property="og:site_name" content="Blood BD">
       <link rel="canonical" href="{{ url()->current() }}">
 	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <!-- CSRF Token -->
@@ -89,27 +89,17 @@
 			  <div class="row align-items-center position-relative">
 				<div class="col-xl-2 col-lg-2 col-md-4 col-6">
 				  <div class="header_logo">
-					<a href="index-2.html"><img src="{{asset('frontend/assets/images/logo.png')}}" alt="images not founds" class="img-fluid"></a>
+					<a href="{{url('/')}}"><img src="{{asset('frontend/assets/images/logo.png')}}" alt="images not founds" class="img-fluid"></a>
 				  </div>
 				</div>
 				<div class="col-xl-8 col-lg-8 d-none d-xxl-block d-xl-block">
 				  <ul class="main_menu">
 					<li class="position-relative">
-					  <a href="javascript:void(0)">Home <i class="fa-solid fa-angle-down"></i></a>
-					  <ul class="submenu_wrapper">
-						<li><a href="index-2.html">Home 1</a></li>
-						<li><a href="index-3.html">Home 2</a></li>
-						<li><a href="index-4.html">Home 3</a></li>
-					  </ul>
+					  <a href="{{url('/')}}">Home <i class="fa-solid fas-fa-home"></i></a>
+					 
 					</li>
-					<li><a href="about.html">About Us</a></li>
-					<li class="position-relative">
-					  <a href="javascript:void(0)">Campaign <i class="fa-solid fa-angle-down"></i></a>
-					  <ul class="submenu_wrapper">
-						<li><a href="campaign.html">Campaign </a></li>
-						<li><a href="campaign-details.html">Campaign Details</a></li>
-					  </ul>
-					</li>
+					<li><a href="{{url('blog')}}">Blog</a></li>
+					
 					<li>
 					  <a href="javascript:void(0)">Pages <i class="fa-solid fa-angle-down"></i></a>
 					  <div class="bi_megamenu">
