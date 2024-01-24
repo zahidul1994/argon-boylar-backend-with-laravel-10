@@ -10,19 +10,14 @@ Route::group([
     'prefix' => 'auth',
     'namespace'=>'Api\Auth'
     ], function ($router) {
-       ##backOffice
-        Route::post('login', [AuthController::class, 'login']);
-        Route::post('logout', 'AuthController@logout');
-        Route::post('refresh', 'AuthController@refresh');
-        Route::get('profile', 'AuthController@me');
-        Route::post('change-password', 'AuthController@changePassword');
-        Route::post('update-profile', 'AuthController@updateProfile');
-        Route::post('student-profile-update', 'AuthController@studentUpdateProfile');
-         ##backOffice
-
-         Route::post('front-login', 'AuthController@frontLogin');
-         Route::post('front-login-otp-check', 'AuthController@frontLoginOtpCheck');
-
+       Route::post('register', [AuthController::class, 'register']);
+       Route::post('login', [AuthController::class, 'login']);
+        Route::post('logout', [AuthController::class,'logout']);
+        Route::post('refresh', [AuthController::class,'refresh']);
+        Route::get('profile', [AuthController::class,'me']);
+        Route::post('change-password', [AuthController::class,'changePassword']);
+        Route::post('update-profile', [AuthController::class,'updateProfile']);
+        
     });
 
 

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api\Auth;
-use  App\Models\User;
+use  App\User;
 use App\Helpers\Helper;
 use App\Models\Profile;
 use App\Mail\UserOtpMail;
@@ -12,30 +12,86 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Storage;
-use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
 
-
-    public function __construct()
+    public function register(Request $request)
     {
-        $this->middleware('auth:api', ['except' => ['login', 'refresh', 'logout', 'frontLogin', 'frontLoginOtpCheck']]);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:1|max:130',
+            'phone' => 'required|numeric|digits:11|unique:users,phone',
+            'password' => 'required|max:30',
+            // 'email' => 'required|email|unique:users',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'errors' => $validator->errors()->all()
+                ]);
+            }
+            $user= new User();
+            $user->name=$request->name;
+            $user->password=Hash::make($request->password);
+            $user->profile_visibility=1;
+            $user->email=$request->phone.'.gmail.com'?:$request->email;
+            $user->otp=rand(10000000000, 99999900000);
+            $user->phone=$request->phone;
+            $user->save();
+            if($user){
+                $profile=new Profile();
+                $profile->user_id= $user->id;
+                $profile->blood_group= $request->blood_group;
+                $profile->date_of_birth= $request->date_of_birth;
+                $profile->gender= $request->gender;
+                $profile->weight=$request->weight;
+                $profile->division=$request->division;
+                $profile->district=$request->district;
+                $profile->upazila=$request->upazila;
+                $profile->union=$request->union;
+                $profile->address=$request->address;
+                $profile->save();
+              if($profile){
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Profile Update'
+                ]);
+              }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'errors'
+                ]);
+
+              }
+
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'errors'
+                ]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Profile Update'
+            ]);
+
+        $userInfo = User::find(Auth::guard('api')->id);
+        $userInfo->name = $request->name;
+        $userInfo->email = $request->email;
+        $userInfo->phone = $request->phone;
+        $userInfo->save();
+        return response()->json([
+            'success' => true,
+            'message' => 'Profile Update'
+        ]);
     }
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
+   
     public function login(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|exists:users,email',
+            'phone' => 'required|min:1|exists:users,phone',
             'password' => 'required|string|min:6',
         ]);
         if ($validator->fails()) {
@@ -45,8 +101,8 @@ class AuthController extends Controller
             ]);
         }
 
-        $credentials = $request->only(['email', 'password']);
-        if (!$token = Auth::attempt($credentials)) {
+        $credentials = $request->only(['phone', 'password']);
+        if (!$token = Auth::guard('api')->attempt($credentials)) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
@@ -61,7 +117,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->json(Auth::guard('api')->user());
     }
 
     /**
@@ -90,7 +146,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => Auth::guard('api')->factory()->getTTL() * 60
         ]);
     }
     /**
@@ -104,15 +160,15 @@ class AuthController extends Controller
     {
 
         $collection = collect([
-            'id' => auth()->id(),
-            'name' => auth()->user()->name,
-            'user_type' => auth()->user()->user_type,
-            'email' => auth()->user()->email,
-            'phone' => auth()->user()->phone,
-            'image' => auth()->user()->image,
-            'status' => auth()->user()->status,
-            'otp' => auth()->user()->otp,
-            'role' => auth()->user()->user_type,
+            'id' => Auth::guard('api')->id(),
+            'name' => Auth::guard('api')->user()->name,
+            'user_type' => Auth::guard('api')->user()->user_type,
+            'email' => Auth::guard('api')->user()->email,
+            'phone' => Auth::guard('api')->user()->phone,
+            'image' => Auth::guard('api')->user()->image,
+            'status' => Auth::guard('api')->user()->status,
+            'otp' => Auth::guard('api')->user()->otp,
+            'role' =>Auth::guard('api')->user()->user_type,
         ]);
         $userInfo =  $collection->all();
 
@@ -120,8 +176,8 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'user' => $userInfo,
-            'message' => "welcome " . auth()->user()->name,
-            'expires_in' => auth()->factory()->getTTL() * 6000 * 2400 * 7000
+            'message' => "welcome " . Auth::guard('api')->user()->name,
+            'expires_in' => Auth::guard('api')->factory()->getTTL() * 6000 * 2400 * 7000
         ]);
     }
 
@@ -139,7 +195,7 @@ class AuthController extends Controller
             ]);
         }
 
-        if (!Hash::check($request->currentPassword, Auth::user()->password)) {
+        if (!Hash::check($request->currentPassword,Auth::guard('api')->password)) {
             return response()->json([
                 'success' => false,
                 'errors' => ['Current password wrong']
@@ -157,12 +213,13 @@ class AuthController extends Controller
             ], 201);
         }
     }
+   
     public function updateProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:1|max:130',
-            'email' => 'required|min:3|max:130|email|unique:users,email,' . Auth::id(),
-            'phone' => 'required|min:9|max:30|unique:users,phone,' . Auth::id(),
+            'email' => 'required|min:3|max:130|email|unique:users,email,' . Auth::guard('api')->id(),
+            'phone' => 'required|min:9|max:30|unique:users,phone,' . Auth::guard('api')->id(),
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -170,70 +227,17 @@ class AuthController extends Controller
             ]);
         }
 
-        $userInfo = User::find(Auth::user()->id);
+        $userInfo = User::find(Auth::guard('api')->id);
         $userInfo->name = $request->name;
         $userInfo->email = $request->email;
         $userInfo->phone = $request->phone;
-        if ($request->filled('image')) {
-            $rand = uniqid(Helper::make_slug(Str::limit($request->name, 30)));
-            $name = $rand . '.webp';
-            $image = Image::make($request->image)->encode('webp');
-            Storage::disk('s3')->put('uploads/userphoto/' . $name, $image->getEncoded());
-            $userInfo->image = Storage::disk('s3')->url('uploads/userphoto/' . $name);
-        }
-
         $userInfo->save();
         return response()->json([
             'success' => true,
             'message' => 'Profile Update'
-        ], 201);
-    }
-    public function studentUpdateProfile(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|min:1|max:130',
-            'email' => 'required|min:3|max:130|email|unique:users,email,' . Auth::id(),
-            'phone' => 'required|min:9|max:30|unique:users,phone,' . Auth::id(),
         ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors()->all()
-            ]);
-        }
-
-        $userInfo = User::find(Auth::user()->id);
-        $userInfo->name = $request->name;
-        $userInfo->email = $request->email;
-        $userInfo->phone = $request->phone;
-        if ($request->filled('image')) {
-            $rand = uniqid(Helper::make_slug(Str::limit($request->name, 30)));
-            $name = $rand . '.webp';
-            $image = Image::make($request->image)->encode('webp');
-            Storage::disk('s3')->put('uploads/userphoto/' . $name, $image->getEncoded());
-            $userInfo->image = Storage::disk('s3')->url('uploads/userphoto/' . $name);
-        }
-
-        $userInfo->save();
-
-        if ($userInfo) {
-            $profile = Profile::whereuser_id($userInfo->id)->first();
-            $profile->level = $request->level;
-            $profile->address = $request->address;
-            $profile->gender = $request->gender;
-            $profile->country = $request->country;
-            $profile->division = $request->division;
-            $profile->district = $request->district;
-            $profile->thana = $request->thana;
-            $profile->class_id = $request->class_id;
-            $profile->save();
-        }
-        return response()->json([
-            'success' => true,
-            'message' => 'Profile Update'
-        ], 201);
     }
-
-
+   
     public function frontLogin(Request $request)
     {
         

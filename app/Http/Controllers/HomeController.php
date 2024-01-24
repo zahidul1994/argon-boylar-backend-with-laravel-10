@@ -16,8 +16,7 @@ class HomeController extends Controller
         SEOTools::setDescription('Blood BD !!!');
         SEOMeta::addKeyword('Blood');
        SEOTools::opengraph()->setUrl(url('/'));
-       
-  return view("frontend.welcome");
+      return view("frontend.welcome");
     }
     public function home()
     {
